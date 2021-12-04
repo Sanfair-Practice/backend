@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTestVariantTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('test_variant', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Test::class)->constrained()->onDelete('cascade');
@@ -23,12 +18,7 @@ class CreateTestVariantTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('test_variant');
     }

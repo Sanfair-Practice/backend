@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateQuestionSectionTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('question_section', function (Blueprint $table) {
             $table->foreignIdFor(Section::class)->constrained()->onDelete('cascade');
@@ -24,12 +19,7 @@ class CreateQuestionSectionTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('question_section');
     }

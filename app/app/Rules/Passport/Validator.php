@@ -14,5 +14,4 @@ interface Validator
      *   Result.
      */
     public function validate(string $value): bool;
-
 }

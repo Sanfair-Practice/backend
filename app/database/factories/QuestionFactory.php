@@ -31,7 +31,8 @@ class QuestionFactory extends Factory
         ];
     }
 
-    private function createDummy(): array {
+    private function createDummy(): array
+    {
         return Collection::range(1, $this->faker->numberBetween(2, 4))
             ->map(fn () => $this->faker->word)
             ->toArray();

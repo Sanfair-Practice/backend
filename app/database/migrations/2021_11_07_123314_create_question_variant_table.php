@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateQuestionVariantTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('question_variant', function (Blueprint $table) {
             $table->foreignIdFor(Variant::class)->constrained()->onDelete('cascade');
@@ -21,12 +16,7 @@ class CreateQuestionVariantTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('question_variant');
     }

@@ -9,6 +9,7 @@ use App\Models\Section;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Variant;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,13 +28,17 @@ class DatabaseSeeder extends Seeder
         Category::truncate();
         Section::truncate();
 
+        /** @var Collection<User> $users */
         $users = User::factory(10)->create();
+        /** @var Collection<Category> $categories */
         $categories = Category::factory(5)->create();
+        /** @var Collection<Tag> $tags */
         $tags = Tag::factory(150)->create();
 
+        /** @var Collection<Question> $questions */
         $questions = Question::factory(1500)
             ->afterMaking(function (Question $question) use ($categories) {
-               $question->category()->associate($categories->random());
+                $question->category()->associate($categories->random());
             })
             ->afterCreating(function (Question $question) use ($tags) {
                 $question->tags()->attach($tags->random(random_int(0, 10)));
@@ -67,6 +72,5 @@ class DatabaseSeeder extends Seeder
                 })
                 ->create();
         }
-
     }
 }

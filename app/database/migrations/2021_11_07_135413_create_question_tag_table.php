@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateQuestionTagTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('question_tag', function (Blueprint $table) {
             $table->foreignIdFor(Tag::class)->constrained()->onDelete('cascade');
@@ -21,12 +16,7 @@ class CreateQuestionTagTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('question_tag');
     }

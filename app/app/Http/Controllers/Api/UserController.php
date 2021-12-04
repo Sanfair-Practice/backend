@@ -16,8 +16,7 @@ class UserController extends Controller
     public function index(Request $request): JsonResponse
     {
         $users = User::all();
-        $resource = UserResource::collection($users);
-        return $resource->toResponse($request);
+        return UserResource::collection($users)->toResponse($request);
     }
 
     public function store(CreateUserRequest $request, Hasher $hasher): JsonResponse

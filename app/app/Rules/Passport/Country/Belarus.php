@@ -25,13 +25,14 @@ final class Belarus implements Validator
         /x';
 
 
-    public function validate(string $value): bool {
+    public function validate(string $value): bool
+    {
         if (strlen($value) !== 14) {
-            return FALSE;
+            return false;
         }
 
-        return match($value[0]) {
-            '1','2','3','4','5','6' => $this->validateFormat( self::OLD_PATTERN, $value),
+        return match ($value[0]) {
+            '1', '2', '3', '4', '5', '6' => $this->validateFormat(self::OLD_PATTERN, $value),
             '7' => $this->validateFormat(self::CURRENT_PATTERN, $value),
             default => false
         };
@@ -41,7 +42,7 @@ final class Belarus implements Validator
     {
         $valid = preg_match($pattern, $value, $matches) > 0;
 
-        return $valid & $this->validateChecksum($value, (int) $matches['checksum']);
+        return $valid && $this->validateChecksum($value, (int) $matches['checksum']);
     }
 
     private function validateChecksum(string $value, int $checksum): bool
@@ -57,9 +58,9 @@ final class Belarus implements Validator
                 1 => $number * 7,
                 2 => $number * 3,
                 0 => $number * 1,
+                default => throw new \InvalidArgumentException()
             };
         }
         return $sum % 10 === $checksum;
     }
-
 }

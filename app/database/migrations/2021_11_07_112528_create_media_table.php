@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMediaTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -28,5 +28,10 @@ class CreateMediaTable extends Migration
 
             $table->nullableTimestamps();
         });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('media');
     }
 }
