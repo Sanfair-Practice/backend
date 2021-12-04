@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'phone' => $this->faker->phoneNumber(),
+            'phone' => $this->getPhoneNumber(),
             'passport' => Hash::make($this->faker->unique()->bothify('#######?###??#')),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -47,5 +47,16 @@ class UserFactory extends Factory
                 'email_verified_at' => null,
             ];
         });
+    }
+
+    private function getPhoneNumber(): string
+    {
+        $code = array_rand(array_flip([
+           29, // MTS + A1
+           33, // MTS
+           44, // A1
+        ]));
+        $local = random_int(1111111, 9999999);
+        return "+375{$code}{$local}";
     }
 }

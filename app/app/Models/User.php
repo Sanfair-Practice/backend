@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 /**
  * @mixin IdeHelperUser
@@ -45,6 +46,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone' => E164PhoneNumberCast::class . ':BY'
     ];
 
     public function variants(): HasMany {
