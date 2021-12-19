@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Test;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,6 +17,18 @@ class CreateTestsTable extends Migration
             $table->unsignedInteger('quantity');
             $table->integer('errors');
             $table->integer('time');
+            $table->enum('status', [
+                Test\Status::CREATED,
+                Test\Status::STARTED,
+                Test\Status::FAILED,
+                Test\Status::PASSED,
+                Test\Status::EXPIRED,
+            ]);
+            $table->enum('type', [
+                Test\Type::TRAINING,
+                Test\Type::TEST,
+                Test\Type::EXAM,
+            ]);
         });
     }
 

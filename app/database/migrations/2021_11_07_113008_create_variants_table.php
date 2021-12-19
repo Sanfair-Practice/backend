@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\User;
+use App\Enums\Variant;
+use App\Models\Test;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +14,18 @@ class CreateVariantsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('seed');
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->integer('time');
-            $table->timestamp('end', 0);
+            $table->timestamp('end', 0)->nullable();
             $table->integer('errors');
             $table->json('input')->default('[]');
+            $table->foreignIdFor(Test::class)->constrained()->onDelete('cascade');
+            $table->enum('status', [
+                Variant\Status::CREATED,
+                Variant\Status::STARTED,
+                Variant\Status::FAILED,
+                Variant\Status::PASSED,
+                Variant\Status::EXPIRED,
+            ])->default(Variant\Status::CREATED);
         });
     }
 

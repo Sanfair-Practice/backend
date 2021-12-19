@@ -2,6 +2,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
+    scanFiles:
+        - _ide_helper.php
     paths:
         - app
         - bootstrap

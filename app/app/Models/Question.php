@@ -56,4 +56,31 @@ class Question extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function choices(string $seed = null): array
+    {
+        $choices = [];
+
+        $key = $this->keyGenerator($seed);
+
+        foreach (array_values($this->dummy) as $index => $value) {
+            $choices[$key($index)] = $value;
+        }
+        $choices[$key(count($this->dummy))] = $this->answer;
+
+        ksort($choices);
+
+        return $choices;
+    }
+
+    public function getAnswer(string $seed = null): string
+    {
+        return $this->keyGenerator($seed)(count($this->dummy));
+    }
+
+    private function keyGenerator(string $seed = null): callable
+    {
+        return fn (int $index): string => $seed === null ?
+            (string) $index : hash('haval128,3', $seed . $index . $this->id);
+    }
 }

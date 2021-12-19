@@ -7,6 +7,7 @@ use App\Models\Chapter;
 use App\Models\Question;
 use App\Models\Section;
 use App\Models\Tag;
+use App\Models\Test;
 use App\Models\User;
 use App\Models\Variant;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,49 +29,61 @@ class DatabaseSeeder extends Seeder
         Category::truncate();
         Section::truncate();
 
-        /** @var Collection<User> $users */
-        $users = User::factory(10)->create();
+        /** @var Collection<Chapter> $chapters */
+        $chapters = Chapter::factory(7)->create();
+        $chapters->each(static function (Chapter $chapter) {
+            /** @var Collection<Section> $sections */
+            $sections = Section::factory(9)->create();
+            $chapter->sections()->attach($sections);
+        });
+
         /** @var Collection<Category> $categories */
         $categories = Category::factory(5)->create();
         /** @var Collection<Tag> $tags */
         $tags = Tag::factory(150)->create();
-
-        /** @var Collection<Question> $questions */
-        $questions = Question::factory(1500)
-            ->afterMaking(function (Question $question) use ($categories) {
-                $question->category()->associate($categories->random());
-            })
-            ->afterCreating(function (Question $question) use ($tags) {
-                $question->tags()->attach($tags->random(random_int(0, 10)));
-            })
-            ->create();
-
-        foreach ($questions->split(25) as $chunk) {
-            Section::factory()
-                ->afterCreating(function (Section $section) use ($chunk) {
-                    $section->questions()->attach($chunk);
-                })
-                ->create();
-        }
+        /** @var Collection<Section> $sections */
         $sections = Section::all();
-
-        foreach ($sections->split(7) as $chunk) {
-            Chapter::factory()
-                ->afterCreating(function (Chapter $chapter) use ($chunk) {
-                    $chapter->sections()->attach($chunk);
+        $sections->each(static function (Section $section) use ($categories, $tags) {
+            /** @var Collection<Question> $questions */
+            $questions = Question::factory(25)
+                ->afterMaking(function (Question $question) use ($categories) {
+                    $question->category()->associate($categories->random());
+                })
+                ->afterCreating(function (Question $question) use ($tags) {
+                    $question->tags()->attach($tags->random(random_int(0, 10)));
                 })
                 ->create();
-        }
+            $section->questions()->attach($questions);
+        });
 
-        foreach ($users as $user) {
-            Variant::factory(10)
-                ->afterMaking(function (Variant $variant) use ($user) {
-                    $variant->user()->associate($user);
+        /** @var Collection<User> $users */
+        $users = User::factory(10)->create();
+        $users->each(static function (User $user) use ($chapters) {
+            Test::factory(5)
+                ->afterMaking(function (Test $test) use ($user) {
+                    $test->user()->associate($user);
                 })
-                ->afterCreating(function (Variant $variant) use ($questions) {
-                    $variant->questions()->attach($questions->random(10));
+                ->afterCreating(function (Test $test) use ($chapters) {
+                    $test->chapters()->attach($chapters->random(random_int(1, $chapters->count())));
+                    $test->sections()->attach($test->chapters->flatMap->sections->map->id->all());
                 })
                 ->create();
-        }
+        });
+
+        /** @var Collection<Test> $tests */
+        $tests = Test::all();
+        $tests->each(static function (Test $test) {
+            /** @var Collection<Variant> $variants */
+            $variants = Variant::factory(random_int(1, 5))
+                ->afterMaking(static function (Variant $variant) use ($test) {
+                    $variant->test()->associate($test);
+                })
+               ->afterCreating(static function (Variant $variant) use ($test) {
+                   $variant->questions()->attach($test->questions->random(10));
+               })
+               ->create();
+
+            $test->variants()->attach($variants);
+        });
     }
 }

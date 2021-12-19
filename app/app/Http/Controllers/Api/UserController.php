@@ -7,45 +7,41 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Http\JsonResponse;
+use App\Service\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function __construct()
     {
-        $users = User::all();
-        return UserResource::collection($users)->toResponse($request);
+        $this->authorizeResource(User::class, 'user');
     }
 
-    public function store(CreateUserRequest $request, Hasher $hasher): JsonResponse
+    public function index(): ResourceCollection
     {
-        $validated = $request->validated();
-        $user = User::make();
-        $user->first_name = $validated['first_name'];
-        $user->last_name = $validated['last_name'];
-        $user->phone = $validated['phone'];
-        $user->passport = $hasher->make($validated['passport']);
-        $user->password = $hasher->make($validated['password']);
-        $user->email = $validated['email'];
-        $user->save();
-        return (new UserResource($user))->toResponse($request);
+        return UserResource::collection(User::all());
     }
 
-    public function show(Request $request, User $user): JsonResponse
+    public function store(CreateUserRequest $request, UserService $userService): UserResource
     {
-        return (new UserResource($user))->toResponse($request);
+        $user = $userService->create($request);
+        return new UserResource($user);
     }
 
-    public function edit(Request $request, User $user): JsonResponse
+    public function show(Request $request, User $user): UserResource
     {
-        return (new UserResource($user))->toResponse($request);
+        return new UserResource($user);
     }
 
-    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    public function edit(Request $request, User $user): UserResource
     {
-        $user->update($request->validated());
-        return (new UserResource($user))->toResponse($request);
+        return new UserResource($user);
+    }
+
+    public function update(UpdateUserRequest $request, User $user, UserService $userService): UserResource
+    {
+        $userService->update($user, $request);
+        return new UserResource($user);
     }
 }

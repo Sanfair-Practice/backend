@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -51,11 +52,11 @@ class UserFactory extends Factory
 
     private function getPhoneNumber(): string
     {
-        $code = array_rand(array_flip([
+        $code = Arr::random([
            29, // MTS + A1
            33, // MTS
            44, // A1
-        ]));
+        ]);
         $local = random_int(1111111, 9999999);
         return "+375{$code}{$local}";
     }

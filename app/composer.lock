@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ca6b1e58055c965f86f761a828c0cb7",
+    "content-hash": "f7d019777ba3e2f4ac1ca8de0024d8a3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2898,6 +2898,60 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-has-many-deep",
+            "version": "v1.14.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
+                "reference": "c44115684aa831b2b74fec8440f6e811602186ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/c44115684aa831b2b74fec8440f6e811602186ed",
+                "reference": "c44115684aa831b2b74fec8440f6e811602186ed",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "illuminate/pagination": "^8.0",
+                "laravel/homestead": "^11.0|^12.0",
+                "phpunit/phpunit": "^9.3",
+                "scrutinizer/ocular": "^1.8",
+                "staudenmeir/eloquent-eager-limit": "^1.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentHasManyDeep\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
+            "support": {
+                "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.14.3"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-08-21T16:45:45+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6261,6 +6315,94 @@
                 }
             ],
             "time": "2021-07-31T17:03:58+00:00"
+        },
+        {
+            "name": "daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep.git",
+                "reference": "49672aac227126103103cc6a642f2c5d10ae4c12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep/zipball/49672aac227126103103cc6a642f2c5d10ae4c12",
+                "reference": "49672aac227126103103cc6a642f2c5d10ae4c12",
+                "shasum": ""
+            },
+            "require": {
+                "barryvdh/laravel-ide-helper": "^2.9.2",
+                "php": "^7.3 || ^8.0",
+                "staudenmeir/eloquent-has-many-deep": "^1.7"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "nunomaduro/larastan": "^0.7.3",
+                "orchestra/testbench": "^6.7",
+                "phpstan/phpstan-mockery": "^0.12.13",
+                "phpstan/phpstan-phpunit": "^0.12.18",
+                "phpunit/phpunit": "^9.5",
+                "thecodingmachine/phpstan-safe-rule": "^1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DanielDeWit\\LaravelIdeHelperHookEloquentHasManyDeep\\Providers\\LaravelIdeHelperHookEloquentHasManyDeepServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DanielDeWit\\LaravelIdeHelperHookEloquentHasManyDeep\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DanielDeWit\\LaravelIdeHelperHookEloquentHasManyDeep\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "analyze": [
+                    "vendor/phpstan/phpstan/phpstan analyse"
+                ],
+                "check-style": [
+                    "php-cs-fixer fix --diff --diff-format=udiff --dry-run",
+                    "php-cs-fixer fix --diff --diff-format=udiff --dry-run --config=.php_cs.tests.php"
+                ],
+                "coverage": [
+                    "vendor/bin/phpunit"
+                ],
+                "fix-style": [
+                    "php-cs-fixer fix",
+                    "php-cs-fixer fix --config=.php_cs.tests.php"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --no-coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel de Wit",
+                    "email": "daniel@danieldewit.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add Eloquent Has Many Deep support to Laravel IDE Helper",
+            "homepage": "https://github.com/daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep",
+            "keywords": [
+                "eloquent-has-many-deep",
+                "laravel-ide-helper"
+            ],
+            "support": {
+                "source": "https://github.com/daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep/tree/master",
+                "issues": "https://github.com/daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep/issues"
+            },
+            "time": "2021-05-03T08:54:17+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -10106,6 +10248,145 @@
             "time": "2021-07-21T12:40:44+00:00"
         },
         {
+            "name": "thecodingmachine/safe",
+            "version": "v1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/safe.git",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "squizlabs/php_codesniffer": "^3.2",
+                "thecodingmachine/phpstan-strict-rules": "^0.12"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Safe\\": [
+                        "lib/",
+                        "deprecated/",
+                        "generated/"
+                    ]
+                },
+                "files": [
+                    "deprecated/apc.php",
+                    "deprecated/libevent.php",
+                    "deprecated/mssql.php",
+                    "deprecated/stats.php",
+                    "lib/special_cases.php",
+                    "generated/apache.php",
+                    "generated/apcu.php",
+                    "generated/array.php",
+                    "generated/bzip2.php",
+                    "generated/calendar.php",
+                    "generated/classobj.php",
+                    "generated/com.php",
+                    "generated/cubrid.php",
+                    "generated/curl.php",
+                    "generated/datetime.php",
+                    "generated/dir.php",
+                    "generated/eio.php",
+                    "generated/errorfunc.php",
+                    "generated/exec.php",
+                    "generated/fileinfo.php",
+                    "generated/filesystem.php",
+                    "generated/filter.php",
+                    "generated/fpm.php",
+                    "generated/ftp.php",
+                    "generated/funchand.php",
+                    "generated/gmp.php",
+                    "generated/gnupg.php",
+                    "generated/hash.php",
+                    "generated/ibase.php",
+                    "generated/ibmDb2.php",
+                    "generated/iconv.php",
+                    "generated/image.php",
+                    "generated/imap.php",
+                    "generated/info.php",
+                    "generated/ingres-ii.php",
+                    "generated/inotify.php",
+                    "generated/json.php",
+                    "generated/ldap.php",
+                    "generated/libxml.php",
+                    "generated/lzf.php",
+                    "generated/mailparse.php",
+                    "generated/mbstring.php",
+                    "generated/misc.php",
+                    "generated/msql.php",
+                    "generated/mysql.php",
+                    "generated/mysqli.php",
+                    "generated/mysqlndMs.php",
+                    "generated/mysqlndQc.php",
+                    "generated/network.php",
+                    "generated/oci8.php",
+                    "generated/opcache.php",
+                    "generated/openssl.php",
+                    "generated/outcontrol.php",
+                    "generated/password.php",
+                    "generated/pcntl.php",
+                    "generated/pcre.php",
+                    "generated/pdf.php",
+                    "generated/pgsql.php",
+                    "generated/posix.php",
+                    "generated/ps.php",
+                    "generated/pspell.php",
+                    "generated/readline.php",
+                    "generated/rpminfo.php",
+                    "generated/rrd.php",
+                    "generated/sem.php",
+                    "generated/session.php",
+                    "generated/shmop.php",
+                    "generated/simplexml.php",
+                    "generated/sockets.php",
+                    "generated/sodium.php",
+                    "generated/solr.php",
+                    "generated/spl.php",
+                    "generated/sqlsrv.php",
+                    "generated/ssdeep.php",
+                    "generated/ssh2.php",
+                    "generated/stream.php",
+                    "generated/strings.php",
+                    "generated/swoole.php",
+                    "generated/uodbc.php",
+                    "generated/uopz.php",
+                    "generated/url.php",
+                    "generated/var.php",
+                    "generated/xdiff.php",
+                    "generated/xml.php",
+                    "generated/xmlrpc.php",
+                    "generated/yaml.php",
+                    "generated/yaz.php",
+                    "generated/zip.php",
+                    "generated/zlib.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+            "support": {
+                "issues": "https://github.com/thecodingmachine/safe/issues",
+                "source": "https://github.com/thecodingmachine/safe/tree/v1.3.3"
+            },
+            "time": "2020-10-28T17:51:34+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -10159,6 +10440,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "daniel-de-wit/laravel-ide-helper-hook-eloquent-has-many-deep": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
